@@ -16,6 +16,8 @@ Risk-Based Vulnerability Management (RBVM) agent uses Claude, a set of `[VM]` (V
 | 3 | `vm-azuredevops-vulnerability-orchestrator` | `agent_output.db` + `AreaPath.txt` + `SLA.txt` | Azure DevOps *Vulnerability* work items (cards/tickets), with the DB updated (AzureID, status, dates) |
 | 4 | `vm-vulnerability-analytics-dashboard` | Azure DevOps Analytics (OData) + `agent_output.db` | Downloadable HTML dashboard |
 
+> The skill names in this table are the folder names. The names Claude shows come from the `name:` field of each `SKILL.md` (see Setup, step 2).
+
 The cycle runs again on every new request. Steps 2 and 3 compare each new requests with what is already stored, so the agent does not create duplicate cards and closes cards whose findings have been fixed.
 
 *Local Azure MCP Server
@@ -106,7 +108,6 @@ These files are stored in the **RBVM Agent** Claude Project. The skills read the
 | `Mitigations.txt` | Grouping | List of contingency compensatory controls, used in addition to an official mitigation measure, where one exists. |
 | `AreaPath.txt` | Orchestrator | Maps each team based on Tenable TAG (`CORE_TEAM`) to its **Tribe**, **Azure Area Path** and **Manager e-mail**. Fills `Assigned To`, `V_Tribe1` and `Area Path` on every card. Add a row here whenever a new team appears. |
 | `status-change-criteria.md` | Orchestrator (inside the skill) | Decision tree for creating, reactivating, replacing and closing cards. |
-| `claude/Cards_*.md` | — (history) | Previous grouping outputs saved by the agent. Kept for audit and comparison. |
 
 ### Database (`agent_output.db`)
 
@@ -125,14 +126,28 @@ Alert30 | Alert15 | Alert5 | CreatedDate | ClosedDate | UpdatedAt | StatusCardAz
 
 ---
 
+## Prerequisites
+
+- **Claude desktop app** (Cowork), with a Claude Project named **RBVM Agent** that holds the files in `context/`.
+- **Tenable Vulnerability Management** (or Tenable One) with access to Hexa AI, and a Tenable API access key and secret key. They go in the `X-ApiKeys` header of `mcp-config/mcp-config.json`.
+- **Node.js**: the Tenable and Azure DevOps MCP servers are started with `npx`.
+- **Python** with a virtual environment, to run the local SQLite MCP server in `mcp-sqlite/` (see `mcp-sqlite/README.md`).
+- **Azure CLI** signed in with `az login`, because the Azure DevOps MCP server is configured with `--authentication azcli`.
+- **Azure DevOps** organization with a *Vulnerability* work item type, permission to create, update and comment on work items in the Area Paths listed in `context/AreaPath.txt`, and read access to Analytics (OData).
+
+---
+
 ## Setup
 
 1. **Claude Project:** open the **RBVM Agent** project in Claude (Cowork) and confirm that the context files listed above are in it.
-2. **Skills:** enable the four `[GV]` skills on your account:
-   - `VM-policy-based-vulnerability-grouping`
-   - `VM-save-data-on-sqlite3-database`
-   - `VM-azuredevops-vulnerability-orchestrator`
-   - `VM-vulnerability-analytics-dashboard`
+2. **Skills:** enable the four skills on your account. Each folder also contains a `.zip` of the same skill for upload. The name Claude shows is the `name:` value in the skill's `SKILL.md`:
+
+   | Folder | Skill name in `SKILL.md` |
+   |--------|--------------------------|
+   | `skill-policy-based-grouping/vm-policy-based-vulnerability-grouping` | `gv-policy-based-vulnerability-grouping` |
+   | `skill-save-data-on-sqlite3-database/vm-save-data-on-sqlite3-database` | `gv-vulnerability-group-storage` |
+   | `skill-azuredevops-vulnerability-orchestrator/vm-azuredevops-vulnerability-orchestrator` | `gv-itsm-vulnerability-orchestrator` |
+   | `skill-generate-html-dashboard/vm-vulnerability-analytics-dashboard` | `gv-vulnerability-analytics-dashboard` |
 3. **MCP servers** (local, through the Claude desktop app - **See the mcp-config.json file**):
    - **Tenable** MCP: access to Tenable VM / Tenable One and HexaAI. Log in to the console when the agent asks you to.
    - **sqlite3** MCP (`sqlite-output`): points to `agent_output.db`.
@@ -143,3 +158,33 @@ Alert30 | Alert15 | Alert5 | CreatedDate | ClosedDate | UpdatedAt | StatusCardAz
    3. *"Sync the database with Azure DevOps"*.
    4. *"Build the vulnerability dashboard"*.
 5. **Review:** check the grouped cards and the Azure DevOps cards before each run that writes to production. Update the context files whenever the VM Standard, SLAs, teams or mitigation tools change.
+
+---
+
+## Outbound data flows
+
+All network traffic goes through the MCP servers declared in `mcp-config/mcp-config.json`. The repository's own code (`mcp-sqlite/server.py`) makes no network calls.
+
+| Destination | Through | What it does |
+|-------------|---------|--------------|
+| Tenable cloud (`https://cloud.tenable.com/mcp/`) | `mcp-remote` | Reads vulnerability findings, assets and tags with your Tenable API keys |
+| Your Azure DevOps organization | `@azure-devops/mcp` (Azure CLI login) | Creates, updates and comments on *Vulnerability* work items; reads Analytics (OData) for the dashboard |
+| Local SQLite file (`SQLITE_OUTPUT_DB`) | `mcp-sqlite/server.py` over stdio | Stores the grouped findings on your computer |
+
+The findings these tools return are processed by Claude as part of the conversation.
+
+---
+
+## Known limitations
+
+- **Company-specific context.** The queries in `PolicyGV.txt`, the SLAs, severity map, mitigations list and team map in `context/` are samples. Replace them with your own standard before running the agent.
+- **Team assignment.** Grouping and card assignment rely on the `CORE_TEAM` tag in Tenable and on a matching row in `AreaPath.txt`. Add a row whenever a new team appears. Replace them with your own standard before running the agent.
+- **Azure DevOps process.** The orchestrator assumes a *Vulnerability* work item type with custom fields such as `V_Tribe1` and `V_ImpactedBU`. Other processes need the orchestrator skill adapted. Replace them with your own standard before running the agent.
+- **Fixed number of queries.** The database has seven tables, `query1` to `query7`, matching the seven policy queries.
+- **No SLA reminders yet.** `Alert30`, `Alert15` and `Alert5` are reserved columns. No reminder automation is included.
+- **Windows-oriented setup.** The example config uses `C:/` paths and `venv/Scripts/python.exe`, and `mcp-sqlite/requirements.txt` includes `pywin32`. On macOS or Linux, adapt the paths and remove that dependency.
+- **Dashboard needs the Azure DevOps MCP.** If that connection fails, the dashboard is not built.
+- **LLM-driven.** Review the grouped cards and the Azure DevOps cards before each run that writes to production.
+- This agent was based on the following technologies that can be adapted to your own scenario:
+  - **ITSM**: AzureDevOps.
+  - **Local Database**: SQLite3
