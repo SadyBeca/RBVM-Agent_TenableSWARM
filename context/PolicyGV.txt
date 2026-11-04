@@ -1,0 +1,22 @@
+PolicyGV
+
+Query 1: Emergency P0
+Risk Modified is not equal to Accepted AND State is equal to Active, Resurfaced, New AND Severity is equal to Critical AND (CVE Category is equal to CISA Known Exploited, Ransomware OR VPR Key Driver Targeted Industries contains Retail OR CVE Exploit Maturity is equal to High, Functional) AND Tags is equal to CORE_Ativo-Critico: Sim AND Tags is equal to CORE_Internet-Face: Sim AND CVSSv3 Attack Vector is equal to Network AND CVSSv3 User Interaction is equal to None 
+
+Query 2: Emergency P1
+Risk Modified is not equal to Accepted AND State is equal to Active, Resurfaced, New AND Severity is equal to Critical AND (CVE Category is equal to CISA Known Exploited, Ransomware OR VPR Key Driver Targeted Industries contains Retail OR CVE Exploit Maturity is equal to High, Functional) AND Tags is not equal to CORE_Ativo-Critico: Sim AND Tags is equal to CORE_Internet-Face: Sim AND CVSSv3 Attack Vector is equal to Network AND CVSSv3 User Interaction is equal to None 
+
+Query 3: Emergency P2
+Risk Modified is not equal to Accepted AND State is equal to Active, Resurfaced, New AND Severity is equal to Critical AND (CVE Category is equal to CISA Known Exploited, Ransomware OR VPR Key Driver Targeted Industries contains Retail OR CVE Exploit Maturity is equal to High, Functional) AND Tags is equal to CORE_Ativo-Critico: Sim AND Tags is not equal to CORE_Internet-Face: Sim AND CVSSv3 Attack Vector is equal to Network AND CVSSv3 User Interaction is equal to None 
+
+Query 4: Emergency P0
+Risk Modified is not equal to Accepted AND Severity is equal to Critical AND State is equal to Active, Resurfaced, New AND Tags is equal to CORE_Ativo-Critico: Sim AND Tags is equal to CORE_Internet-Face: Sim AND (VPR Key Driver On CISA KEV is equal to Yes OR VPR Key Driver Targeted Industries contains Retail OR VPR Key Driver Exploit Code Maturity is equal to High, Functional) 
+
+Query 5: Emergency P0
+Risk Modified is not equal to Accepted AND Severity is equal to Critical AND State is equal to Active, Resurfaced, New AND CVE does not exist AND (CVSSv3 Vector is equal to *AC:L* OR VPR Key Driver Exploit Code Maturity is equal to POC, High, Functional) AND Tags is equal to CORE_Internet-Face: Sim AND Tags is equal to CORE_Ativo-Critico: Sim 
+
+Query 6: Emergency P1
+Risk Modified is not equal to Accepted AND Severity is equal to Critical AND State is equal to Active, Resurfaced, New AND Tags is not equal to CORE_Ativo-Critico: Sim AND Tags is equal to CORE_Internet-Face: Sim AND (VPR Key Driver On CISA KEV is equal to Yes OR VPR Key Driver Targeted Industries contains Retail OR VPR Key Driver Exploit Code Maturity is equal to High, Functional) 
+
+Query 7: Emergency P1
+Risk Modified is not equal to Accepted AND Severity is equal to Critical AND State is equal to Active, Resurfaced, New AND Tags is not equal to CORE_Ativo-Critico: Sim AND Tags is equal to CORE_Internet-Face: Sim AND CVE does not exist AND (CVSSv3 Vector is equal to *AC:L* OR VPR Key Driver Exploit Code Maturity is equal to High, Functional, POC) 

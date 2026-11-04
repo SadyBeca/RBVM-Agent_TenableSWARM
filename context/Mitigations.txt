@@ -1,0 +1,10 @@
+Mitigations
+
+On-Premises
+-EDR Sentinel One
+-Virtual Patch TrendMicro
+-Zscaler
+-Cisco Secure Access (SWG - Secure Web Gateway)
+
+Web Application
+-WAF Cloudflare

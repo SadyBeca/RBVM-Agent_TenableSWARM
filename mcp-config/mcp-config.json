@@ -1,0 +1,32 @@
+{  
+  "mcpServers": {
+    "tenable": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://cloud.tenable.com/mcp/",
+        "--header",
+        "X-ApiKeys: accessKey=<your-access-key>;secretKey=<your-secret-key>"
+      ]
+    },
+    "sqlite-output": {
+      "command": "C:/<your-path>/venv/Scripts/python.exe",
+      "args": [
+        "C:/<your-path>/mcp-sqlite3/server.py"
+      ],
+      "env": {
+        "SQLITE_OUTPUT_DB": "C:/TEMP/mcp-sqlite3/agent_output.db"
+      }
+    },
+    "ado": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@azure-devops/mcp",
+        "<your-organization>",
+        "--authentication",
+        "azcli"
+      ]
+    }
+  }
+}

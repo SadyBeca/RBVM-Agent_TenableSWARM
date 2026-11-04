@@ -1,0 +1,10 @@
+Severity
+
+- If the grouped vulnerabilities came from Queries 1, 4, or 5:
+    - Consider them Emergency P0.
+
+- If the grouped vulnerabilities came from Queries 2, 6, or 7:
+    - Consider them Emergency P1.
+
+- If the grouped vulnerabilities came from Query 3:
+    - Consider them Emergency P2.

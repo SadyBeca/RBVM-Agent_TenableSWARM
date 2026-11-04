@@ -1,0 +1,12 @@
+SLA
+
+- Remediation Due Date:
+
+    - If the grouping originates from Queries 1, 4, or 5
+        - Due date: Current Date + 15 calendar days
+
+    - If the grouping originates from Queries 2, 6, or 7
+        - Due date: Current Date + 20 calendar days
+
+    - If the grouping originates from Query 3
+        - Due date: Current Date + 30 calendar days

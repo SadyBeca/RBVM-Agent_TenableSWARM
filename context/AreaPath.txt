@@ -1,0 +1,8 @@
+| Team | Tribe | Area Path | Manager |
+|------|--------|-----------|---------|
+| GL_SN_TI_N3_Sales_Platform | Sales & Experience | Tech\Sales_Platform_Services | marcos.andrade@example.com.br |
+| GL_SN_TI_N3_Digital_Accounting | Operations & Foundation | Tech\Finance_Services | juliana.ferraz@example.com.br |
+| GL_SN_TI_N3_Data_and_Analytics | Sales & Experience | Tech\Tech_Data_Analytics_Services | thiago.moreira@example.com.br |
+| GL_SN_TI_N3_People_Management | Operations & Foundation | Tech\People_Services | camila.rezende@example.com.br |
+| GL_SN_TI_N3_Supply_Chain | Operations & Foundation | Tech\Supply_Chain_Services | juliana.ferraz@example.com.br |
+| GL_SN_TI_N3_Linux_Servers | Infrastructure | Tech\Infrastructure\Corporate_Servers | paulo.nogueira@example.com.br |
