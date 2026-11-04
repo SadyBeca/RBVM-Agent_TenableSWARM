@@ -144,10 +144,10 @@ Alert30 | Alert15 | Alert5 | CreatedDate | ClosedDate | UpdatedAt | StatusCardAz
 
    | Folder | Skill name in `SKILL.md` |
    |--------|--------------------------|
-   | `skill-policy-based-grouping/vm-policy-based-vulnerability-grouping` | `gv-policy-based-vulnerability-grouping` |
-   | `skill-save-data-on-sqlite3-database/vm-save-data-on-sqlite3-database` | `gv-vulnerability-group-storage` |
-   | `skill-azuredevops-vulnerability-orchestrator/vm-azuredevops-vulnerability-orchestrator` | `gv-itsm-vulnerability-orchestrator` |
-   | `skill-generate-html-dashboard/vm-vulnerability-analytics-dashboard` | `gv-vulnerability-analytics-dashboard` |
+   | `skill-policy-based-grouping/vm-policy-based-vulnerability-grouping` | `vm-policy-based-vulnerability-grouping` |
+   | `skill-save-data-on-sqlite3-database/vm-save-data-on-sqlite3-database` | `vm-vulnerability-group-storage` |
+   | `skill-azuredevops-vulnerability-orchestrator/vm-azuredevops-vulnerability-orchestrator` | `vm-azuredevops-vulnerability-orchestrator` |
+   | `skill-generate-html-dashboard/vm-vulnerability-analytics-dashboard` | `vm-vulnerability-analytics-dashboard` |
 3. **MCP servers** (local, through the Claude desktop app - **See the mcp-config.json file**):
    - **Tenable** MCP: access to Tenable VM / Tenable One and HexaAI. Log in to the console when the agent asks you to.
    - **sqlite3** MCP (`sqlite-output`): points to `agent_output.db`.

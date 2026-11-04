@@ -1,5 +1,5 @@
 ---
-name: "gv-vulnerability-group-storage"
+name: "vm-save-data-on-sqlite3"
 description: Saves the grouped data obtained from the Hexa AI skill into the database through the sqlite3 MCP.
 ---
  
