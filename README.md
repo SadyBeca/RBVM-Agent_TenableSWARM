@@ -34,9 +34,9 @@ Acts as a member of the Vulnerability Management team:
 
 - Uses **HexaAI** inside the Tenable Vulnerability Management console to list the most important vulnerabilities, based on the queries defined in the Vulnerability Management company Standard (`PolicyGV.txt`).
 - **Groups** findings that belong in the same card. Grouping rules:
-  - ✅ Same vulnerability or remediation (e.g. OS patching, Oracle CPU for WebLogic) on several assets that share the same `CORE_TEAM` tag → **one card**.
+  - ✅ Same vulnerability or remediation (e.g. OS patching, Oracle CPU for WebLogic) on several assets that share the same `CORE_TEAMS` tag → **one card**.
   - ❌ Different vulnerabilities, even if they have the same team → separate cards.
-  - ❌ Same vulnerability on assets with different `CORE_TEAM` teams → separate cards.
+  - ❌ Same vulnerability on assets with different `CORE_TEAMS` teams → separate cards.
 - Produces a table with these fields: `ID | Finding IDs | Title | Description | Assets | Evidence | Responsible Team | Solution | Mitigation | References | Severity | Remediation Deadline | Source Query | Pending Items`.
 - `Pending Items` keeps only the finding IDs that are still open, so it shrinks as teams remediate.
 - `Mitigation` based on company's mitigations/detectives technology (Mitigation.txt) the agent suggests possible workarounds/compensating controls to minimize risks levels.
@@ -106,7 +106,7 @@ These files are stored in the **RBVM Agent** Claude Project. The skills read the
 | `Severity.txt` | Grouping | Maps the source query to an emergency level |
 | `SLA.txt` | Grouping, Orchestrator | Remediation deadline (calendar days counted from today) |
 | `Mitigations.txt` | Grouping | List of contingency compensatory controls, used in addition to an official mitigation measure, where one exists. |
-| `AreaPath.txt` | Orchestrator | Maps each team based on Tenable TAG (`CORE_TEAM`) to its **Tribe**, **Azure Area Path** and **Manager e-mail**. Fills `Assigned To`, `V_Tribe1` and `Area Path` on every card. Add a row here whenever a new team appears. |
+| `AreaPath.txt` | Orchestrator | Maps each team based on Tenable TAG (`CORE_TEAMS`) to its **Tribe**, **Azure Area Path** and **Manager e-mail**. Fills `Assigned To`, `V_Tribe1` and `Area Path` on every card. Add a row here whenever a new team appears. |
 | `status-change-criteria.md` | Orchestrator (inside the skill) | Decision tree for creating, reactivating, replacing and closing cards. |
 
 ### Database (`agent_output.db`)
@@ -115,7 +115,7 @@ Each `queryN` table has a primary key plus these columns:
 
 ```
 AzureID | FindingID | Title | Description | Assets | Evidence | ResponsibleTeam | Solution |
-Mitigation | References | Severity | RemediationDeadline | SourceQuery | PendingItems |
+Mitigation | _References | Severity | RemediationDeadline | SourceQuery | PendingItems |
 Alert30 | Alert15 | Alert5 | CreatedDate | ClosedDate | UpdatedAt | StatusCardAzure
 ```
 
@@ -159,6 +159,7 @@ Alert30 | Alert15 | Alert5 | CreatedDate | ClosedDate | UpdatedAt | StatusCardAz
    4. *"Build the vulnerability dashboard"*.
 5. **Review:** check the grouped cards and the Azure DevOps cards before each run that writes to production. Update the context files whenever the VM Standard, SLAs, teams or mitigation tools change.
 
+If you need more details to start the Agent or you need troubleshooting guidance access [SETUP](SETUP.md)
 ---
 
 ## Outbound data flows
@@ -178,7 +179,7 @@ The findings these tools return are processed by Claude as part of the conversat
 ## Known limitations
 
 - **Company-specific context.** The queries in `PolicyGV.txt`, the SLAs, severity map, mitigations list and team map in `context/` are samples. Replace them with your own standard before running the agent.
-- **Team assignment.** Grouping and card assignment rely on the `CORE_TEAM` tag in Tenable and on a matching row in `AreaPath.txt`. Add a row whenever a new team appears. Replace them with your own standard before running the agent.
+- **Team assignment.** Grouping and card assignment rely on the `CORE_TEAMS` tag in Tenable and on a matching row in `AreaPath.txt`. Add a row whenever a new team appears. Replace them with your own standard before running the agent.
 - **Azure DevOps process.** The orchestrator assumes a *Vulnerability* work item type with custom fields such as `V_Tribe1` and `V_ImpactedBU`. Other processes need the orchestrator skill adapted. Replace them with your own standard before running the agent.
 - **Fixed number of queries.** The database has seven tables, `query1` to `query7`, matching the seven policy queries.
 - **No SLA reminders yet.** `Alert30`, `Alert15` and `Alert5` are reserved columns. No reminder automation is included.

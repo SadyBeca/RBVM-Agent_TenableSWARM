@@ -54,6 +54,7 @@ Create python environment and install requirements.txt
 
 ```
 python -m venv venv
+.\venv\Scripts\activate.p1
 pip install -r requirements.txt
 ```
 
@@ -69,3 +70,4 @@ Add the following in claude desktop config json:
       }
     }
 ```
+> For more informations access the following file [SETUP](../SETUP.md)

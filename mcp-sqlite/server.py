@@ -119,8 +119,8 @@ def create_entry(
     """
     _check_table(table)
     cols = (
-        "FindingID", "Title", "Description", "Assets", "Evidences", "ResponsibleTeam",
-        "Solution", "Mitigation", "References", "Severity", "RemediationDeadline",
+        "FindingID", "Title", "Description", "Assets", "Evidence", "ResponsibleTeam",
+        "Solution", "Mitigation", "_References", "Severity", "RemediationDeadline",
         "SourceQuery", "PendingItems",
     )
     values = (

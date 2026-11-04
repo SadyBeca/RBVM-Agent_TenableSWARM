@@ -15,7 +15,7 @@
         "C:/<your-path>/mcp-sqlite3/server.py"
       ],
       "env": {
-        "SQLITE_OUTPUT_DB": "C:/<your-path>/mcp-sqlite3/agent_output.db"
+        "SQLITE_OUTPUT_DB": "C:/<your-path>/mcp-sqlite/agent_output.db"
       }
     },
     "ado": {
