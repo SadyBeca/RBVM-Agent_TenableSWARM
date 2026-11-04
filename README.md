@@ -74,7 +74,7 @@ Syncs the database with Azure DevOps through the `local AzureDevops` MCP:
   - Leave 2 blank lines between sections.
   - Keep Severity, DueDate and DetectionOrigin out of the Description (they have their own fields).
 
-### `[GV] Vulnerability Analytics Dashboard (Skill)`
+### `[VM] Vulnerability Analytics Dashboard (Skill)`
 
 Builds an HTML dashboard (light theme, last-updated timestamp) from Azure DevOps Analytics (OData), joined with `agent_output.db` (`WorkItemId` ↔ `AzureID`). The dashboard must never show made-up data. If the `local Azure MCP` connection fails, it does not build the visuals. Contents:
 
@@ -144,10 +144,10 @@ Alert30 | Alert15 | Alert5 | CreatedDate | ClosedDate | UpdatedAt | StatusCardAz
 
    | Folder | Skill name in `SKILL.md` |
    |--------|--------------------------|
-   | `skill-policy-based-grouping/vm-policy-based-vulnerability-grouping` | `gv-policy-based-vulnerability-grouping` |
-   | `skill-save-data-on-sqlite3-database/vm-save-data-on-sqlite3-database` | `gv-vulnerability-group-storage` |
-   | `skill-azuredevops-vulnerability-orchestrator/vm-azuredevops-vulnerability-orchestrator` | `gv-itsm-vulnerability-orchestrator` |
-   | `skill-generate-html-dashboard/vm-vulnerability-analytics-dashboard` | `gv-vulnerability-analytics-dashboard` |
+   | `skill-policy-based-grouping/vm-policy-based-vulnerability-grouping` | `vm-policy-based-vulnerability-grouping` |
+   | `skill-save-data-on-sqlite3-database/vm-save-data-on-sqlite3-database` | `vm-save-data-on-sqlite-database` |
+   | `skill-azuredevops-vulnerability-orchestrator/vm-azuredevops-vulnerability-orchestrator` | `vm-azuredevops-vulnerability-orchestrator` |
+   | `skill-generate-html-dashboard/vm-vulnerability-analytics-dashboard` | `vm-vulnerability-analytics-dashboard` |
 3. **MCP servers** (local, through the Claude desktop app - **See the mcp-config.json file**):
    - **Tenable** MCP: access to Tenable VM / Tenable One and HexaAI. Log in to the console when the agent asks you to.
    - **sqlite3** MCP (`sqlite-output`): points to `agent_output.db`.
