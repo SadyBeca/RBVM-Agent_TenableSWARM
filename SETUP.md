@@ -1,6 +1,6 @@
 # RBVM Agent — Step-by-step setup
 
-This guide takes you from a clean machine to a first successful run. Items marked **[CONFIRM]** are details only the project team can fill in (versions you tested, exact permission names). Replace each one before publishing.
+This guide takes you from a clean machine to a first successful run.
 
 Contents: [Part 1 — Outside Claude Desktop](#part-1--outside-claude-desktop) · [Part 2 — Inside Claude Desktop](#part-2--inside-claude-desktop) · [Part 3 — First run and verification](#part-3--first-run-and-verification) · [Troubleshooting](#troubleshooting)
 
@@ -83,7 +83,7 @@ az devops project list
 
 ### 1.6 SQLite MCP server
 
-1. Clone or download this repository and choose where it will live. Use the **real path of the `mcp-sqlite/` folder** in the next steps (the example config says `mcp-sqlite/` but you must edit accordingly to your folder path).
+1. Clone or download this repository and choose where it will live. Use the **absolute path to the `mcp-sqlite/` folder** when configuring the SQLite MCP server in the next steps.
 2. Create a virtual environment and install the requirements.
 
    **Windows (PowerShell)**
@@ -141,7 +141,7 @@ Do **not** replace the file. If it already has an `mcpServers` object, add the t
 |-------------|--------------|
 | `<your-access-key>` and `<your-secret-key>` | The Tenable API keys from step 1.2. Never commit them. |
 | `C:/<your-path>/venv/Scripts/python.exe` | The full path to the Python in your virtual environment (macOS/Linux: `<path>/venv/bin/python`) |
-| `C:/<your-path>/mcp-sqlite3/server.py` | The full path to `mcp-sqlite/server.py` |
+| `C:/<your-path>/mcp-sqlite/server.py` | The full path to `mcp-sqlite/server.py` |
 | `SQLITE_OUTPUT_DB` value | The database path from step 1.6 |
 | `<your-organization>` | Your Azure DevOps organization name |
 
@@ -155,7 +155,7 @@ Open **Settings → Developer**. `tenable`, `sqlite-output` and `ado` should eac
 
 1. Create a new project named **RBVM Agent**.
 2. Add the five files from `context/` to the project knowledge.
-3. Add any project instructions you use. If none, say "No project instructions are needed.
+3. Add any project instructions you use. If none, say "No project instructions are needed."
 
 ### 2.6 Upload and enable the four skills
 

@@ -54,7 +54,7 @@ Create python environment and install requirements.txt
 
 ```
 python -m venv venv
-.\venv\Scripts\activate.p1
+.\venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
 
@@ -63,10 +63,10 @@ Add the following in claude desktop config json:
     "sqlite-output": {
       "command": "C:/<your-path>/venv/Scripts/python.exe",
       "args": [
-        "C:/<your-path>/mcp-sqlite3/server.py"
+        "C:/<your-path>/mcp-sqlite/server.py"
       ],
       "env": {
-        "SQLITE_OUTPUT_DB": "C:/TEMP/mcp-sqlite3/agent_output.db"
+        "SQLITE_OUTPUT_DB": "C:/TEMP/mcp-sqlite/agent_output.db"
       }
     }
 ```

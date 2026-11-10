@@ -47,7 +47,7 @@ Acts as a member of the Vulnerability Management team:
 
 Saves the grouped output in the SQLite database through the sqlite3 MCP:
 
-- One table per policy query: `query1` … `query7`.
+- One table per policy query: `Query1` … `Query7`.
 - **First run:** inserts all rows. `AzureID`, `Alert30/15/5`, `CreatedDate`, `ClosedDate` and `StatusCardAzure` start as `NULL`.
 - **Later runs:** compares the new HexaAI output with the table of the same query, matching on `FindingID`. It does **not** create a new record when the finding already belongs to a record whose card is not Closed. It inserts records only for groupings that are new.
 
@@ -145,11 +145,11 @@ Alert30 | Alert15 | Alert5 | CreatedDate | ClosedDate | UpdatedAt | StatusCardAz
    | Folder | Skill name in `SKILL.md` |
    |--------|--------------------------|
    | `skill-policy-based-grouping/vm-policy-based-vulnerability-grouping` | `vm-policy-based-vulnerability-grouping` |
-   | `skill-save-data-on-sqlite3-database/vm-save-data-on-sqlite3-database` | `vm-vulnerability-group-storage` |
+   | `skill-save-data-on-sqlite3-database/vm-save-data-on-sqlite3-database` | `vm-save-data-on-sqlite3-database` |
    | `skill-azuredevops-vulnerability-orchestrator/vm-azuredevops-vulnerability-orchestrator` | `vm-azuredevops-vulnerability-orchestrator` |
    | `skill-generate-html-dashboard/vm-vulnerability-analytics-dashboard` | `vm-vulnerability-analytics-dashboard` |
 3. **MCP servers** (local, through the Claude desktop app - **See the mcp-config.json file**):
-   - **Tenable** MCP: access to Tenable VM / Tenable One and HexaAI. Log in to the console when the agent asks you to.
+   - **Tenable** MCP: access to Tenable VM / Tenable One and HexaAI. Authentication is handled through the API keys configured in the MCP server, as described in SETUP.md (step 1.2).
    - **sqlite3** MCP (`sqlite-output`): points to `agent_output.db`.
    - **Azure DevOps** MCP (`ado`): needs permission to create, update and comment on *Vulnerability* work items in the Area Paths listed in `AreaPath.txt`, plus read access to Analytics (OData).
 4. **Run the workflow** in order, either by asking Claude for each step or by chaining the steps:
@@ -160,6 +160,7 @@ Alert30 | Alert15 | Alert5 | CreatedDate | ClosedDate | UpdatedAt | StatusCardAz
 5. **Review:** check the grouped cards and the Azure DevOps cards before each run that writes to production. Update the context files whenever the VM Standard, SLAs, teams or mitigation tools change.
 
 If you need more details to start the Agent or you need troubleshooting guidance access [SETUP](SETUP.md)
+
 ---
 
 ## Outbound data flows
@@ -181,7 +182,7 @@ The findings these tools return are processed by Claude as part of the conversat
 - **Company-specific context.** The queries in `PolicyGV.txt`, the SLAs, severity map, mitigations list and team map in `context/` are samples. Replace them with your own standard before running the agent.
 - **Team assignment.** Grouping and card assignment rely on the `CORE_TEAMS` tag in Tenable and on a matching row in `AreaPath.txt`. Add a row whenever a new team appears. Replace them with your own standard before running the agent.
 - **Azure DevOps process.** The orchestrator assumes a *Vulnerability* work item type with custom fields such as `V_Tribe1` and `V_ImpactedBU`. Other processes need the orchestrator skill adapted. Replace them with your own standard before running the agent.
-- **Fixed number of queries.** The database has seven tables, `query1` to `query7`, matching the seven policy queries.
+- **Fixed number of queries.** The database has seven tables, `Query1` to `Query7`, matching the seven policy queries.
 - **No SLA reminders yet.** `Alert30`, `Alert15` and `Alert5` are reserved columns. No reminder automation is included.
 - **Windows-oriented setup.** The example config uses `C:/` paths and `venv/Scripts/python.exe`, and `mcp-sqlite/requirements.txt` includes `pywin32`. On macOS or Linux, adapt the paths and remove that dependency.
 - **Dashboard needs the Azure DevOps MCP.** If that connection fails, the dashboard is not built.
