@@ -1,5 +1,5 @@
 ---
-name: "vm-save-data-on-sqlite3"
+name: "vm-save-data-on-sqlite3-database"
 description: Saves the grouped data obtained from the Hexa AI skill into the database through the sqlite3 MCP.
 ---
  
@@ -11,13 +11,13 @@ sqlite3 MCP and the vulnerability grouping output.
  
 The database is agent_output.db.
 You must save the result of each query in a separate table, and each table must be named:
-query1
-query2
-query3
-query4
-query5
-query6
-query7
+Query1
+Query2
+Query3
+Query4
+Query5
+Query6
+Query7
  
 The Hexa table will have the following fields:
  
@@ -54,7 +54,7 @@ Save to the database following this mapping:
 After the first run, in the following runs:
  
 - Compare the Hexa AI output with what already exists in the agent_output.db tables.
-- Compare the result of each query with the table of the same name. Example: query 1 → query1 table.
+- Compare the result of each query with the table of the same name. Example: Query 1 → Query1 table.
 - Compare the Findings IDs fields with the database FindingID field.
 - For Hexa AI records whose findings already exist in a database record with StatusCardAzure other than Closed, do not create new records.
 - For Hexa records that have no matching record in the database, create one in the database.

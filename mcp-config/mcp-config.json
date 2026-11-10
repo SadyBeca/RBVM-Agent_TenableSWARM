@@ -1,8 +1,9 @@
-{  
+{
   "mcpServers": {
     "tenable": {
       "command": "npx",
       "args": [
+        "-y",
         "mcp-remote",
         "https://cloud.tenable.com/mcp/",
         "--header",
@@ -12,7 +13,7 @@
     "sqlite-output": {
       "command": "C:/<your-path>/venv/Scripts/python.exe",
       "args": [
-        "C:/<your-path>/mcp-sqlite3/server.py"
+        "C:/<your-path>/mcp-sqlite/server.py"
       ],
       "env": {
         "SQLITE_OUTPUT_DB": "C:/<your-path>/mcp-sqlite/agent_output.db"
